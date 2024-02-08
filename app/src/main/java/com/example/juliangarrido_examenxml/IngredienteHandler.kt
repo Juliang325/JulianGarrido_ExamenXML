@@ -1,8 +1,7 @@
 package com.example.juliangarrido_examenxml
 
 import android.util.Log
-import com.example.juliangarrido_examenxml.models.Alimento
-import com.example.juliangarrido_examenxml.models.Ingrediente
+import com.example.juliangarrido_examenxml.models.*
 import org.xml.sax.Attributes
 import org.xml.sax.SAXException
 import org.xml.sax.helpers.DefaultHandler
@@ -11,6 +10,9 @@ class IngredienteHandler : DefaultHandler(){
     private val cadena = StringBuilder()
     private var ingrediente:Ingrediente? = null
     private var alimento: Alimento? = null
+    private var proteina: Proteinas? = null
+    private var grasas: Grasas? = null
+    private var hidratos: Hidratos? = null
 
     var ingredientes: MutableList<Ingrediente> = mutableListOf()
 
@@ -29,18 +31,26 @@ class IngredienteHandler : DefaultHandler(){
             ingrediente?.nombre = attributes.getValue("nombre")
             Log.d("SAX", "abriendo etiqueta trabajador")
         }
+
         if (nombre == "proteinas") {
-            alimento = Alimento()
-            alimento?.proteinas = attributes.getValue("cantidad100g").toInt()
+//            alimento = Alimento()
+            proteina = Proteinas()
+            proteina?.cantidad100g = attributes.getValue("cantidad100g").toInt()
             Log.d("SAX", "abriendo etiqueta trabajador")
         }
         if (nombre == "grasas") {
-            alimento?.grasas = attributes.getValue("cantidad100g").toInt()
+            grasas = Grasas()
+            grasas?.cantidad100g = attributes.getValue("cantidad100g").toInt()
             Log.d("SAX", "abriendo etiqueta trabajador")
         }
         if (nombre == "hidratos") {
-            alimento?.hidratos = attributes.getValue("cantidad100g").toFloat()
+            hidratos = Hidratos()
+            hidratos?.cantidad100g = attributes.getValue("cantidad100g").toFloat()
             Log.d("SAX", "abriendo etiqueta trabajador")
+        }
+
+        if ( nombre == "alimento"){
+            alimento = Alimento()
         }
 
     }
@@ -54,6 +64,7 @@ class IngredienteHandler : DefaultHandler(){
     @Throws(SAXException::class)
     override fun endElement(uri: String, nombreLocal: String, nombre: String) {
         when (nombre) {
+
             "alimento" -> ingrediente?.alimento= alimento
             "cantidad" -> ingrediente?.cantidad = cadena.toString().toInt()
             "ingrediente" ->{

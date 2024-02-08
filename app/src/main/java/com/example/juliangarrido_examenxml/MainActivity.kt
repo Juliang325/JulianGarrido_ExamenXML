@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.juliangarrido_examenxml.dao.DaoSAX
+import com.example.juliangarrido_examenxml.dao.DaoSimpleXML
 import javax.xml.parsers.SAXParserFactory
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
         daoSAX.procesarArchivoAssetsXMLSAX()
         Log.d("XMLSAX", "SAX terminado")
         procesarArchivoXMLSAX()
+        //2º forma lectura: probando lectura simple de carpeta Assets desde el DAO
+        Log.d("SimpleXML", "probando assets XML")
+        var daoAssets=DaoSimpleXML(applicationContext)
+        daoAssets.procesarArchivoAssetsXML()
+        Log.d("SimpleXML", "probando procesado con Simple XML Framework")
     }
 
     private fun procesarArchivoXMLSAX() {

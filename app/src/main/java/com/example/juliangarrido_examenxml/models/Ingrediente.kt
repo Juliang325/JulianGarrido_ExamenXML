@@ -21,16 +21,34 @@ data class Ingrediente(
 
     @field:Attribute(name = "nombre", required = false)
     var nombre: String? = null,
-    )
+)
 
 @Root(name = "alimento")
 data class Alimento(
     @field:Element(name = "proteinas")
-    var proteinas: Int? = 0,
+    var proteinas: Proteinas? = null,
 
     @field:Element(name = "grasas")
-    var grasas:Int? = 0,
+    var grasas: Grasas? = null,
 
     @field:Element(name = "hidratos")
-    var hidratos: Float = 0f,
+    var hidratos: Hidratos? = null,
+)
+
+@Root(name = "proteinas")
+data class Proteinas(
+    @field:Attribute(name = "cantidad100g")
+    var cantidad100g: Int = 0,
+)
+
+@Root(name = "grasas")
+data class Grasas(
+    @field:Attribute(name = "cantidad100g")
+    var cantidad100g: Int = 0,
+)
+
+@Root(name = "hidratos")
+data class Hidratos(
+    @field:Attribute(name = "cantidad100g")
+    var cantidad100g: Float = 0f,
 )
